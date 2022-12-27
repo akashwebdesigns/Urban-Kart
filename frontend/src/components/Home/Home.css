@@ -1,0 +1,7 @@
+.banner{
+    margin-top: 10vh;
+    width: 100vmax;
+    height: 90vh;
+    background-color: rgb(37, 35, 35);
+    background-image:url('./slider-bg.jpg')
+}
