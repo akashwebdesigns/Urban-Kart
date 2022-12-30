@@ -35,7 +35,7 @@ const LoginSignUp = ({location}) => {
 
   const { name, email, password } = user;
 
-  const [avatar, setAvatar] = useState("/Profile.png");
+  const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
 
   const loginSubmit = (e) => {
@@ -52,6 +52,7 @@ const LoginSignUp = ({location}) => {
     myForm.set("email", email);
     myForm.set("password", password);
     myForm.set("avatar", avatar);
+    console.log(avatar);
     dispatch(register(myForm));
   };
 

@@ -13,10 +13,13 @@ const sendEmail = async(options) => {
     })
 
     const mailOptions = {
-        from:process.env.SMTP_MAIL,
+        from:`Urban Kart <${process.env.SMTP_MAIL}>`,
         to:options.email,
         subject:options.subject,
-        text:options.message
+        text:options.message,
+        html:require('../utils/emailTemplate')({
+            resetPasswordUrl:options.resetPasswordUrl,
+        })
     }
 
     await transporter.sendMail(mailOptions);

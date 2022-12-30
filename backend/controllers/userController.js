@@ -8,7 +8,9 @@ const cloudinary = require("cloudinary");
 
 //Register a user
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
-  // console.log(req.body.avatar)
+  if(!req.body.avatar){
+    return next(new ErrorHandler("Please upload an image",400));
+  }
   const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
     folder: "avatars",
     width: 150,
@@ -104,7 +106,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
     await sendMail({
       email: user.email,
       subject: "Urban Kart Password Recovery",
-      message,
+      resetPasswordUrl,
     });
 
     res.status(200).json({
