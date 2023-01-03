@@ -7,6 +7,7 @@ import { Typography } from "@material-ui/core";
 import { getOrderDetails, clearErrors } from "../../actions/orderAction";
 import Loader from "../Loader";
 import { useAlert } from "react-alert";
+import moment from 'moment';
 
 const OrderDetails = () => {
   const {id}=useParams();  
@@ -54,6 +55,12 @@ const OrderDetails = () => {
                       `${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.state}, ${order.shippingInfo.pinCode}, ${order.shippingInfo.country}`}
                   </span>
                 </div>
+                <div>
+                  <p>Order Placed On:</p>
+                  <span>
+                    {order.createdAt && moment(order.createdAt).format('DD-MM-YYYY hh:mm A')}
+                  </span>
+                </div>
               </div>
               <Typography>Payment</Typography>
               <div className="orderDetailsContainerBox">
@@ -75,7 +82,12 @@ const OrderDetails = () => {
 
                 <div>
                   <p>Amount:</p>
-                  <span>{order.totalPrice && order.totalPrice}</span>
+                  <span>₹{order.totalPrice && order.totalPrice}</span>
+                </div>
+
+                <div>
+                  <p>Paid On:</p>
+                  <span>{order.paidAt && moment(order.paidAt).format('DD-MM-YYYY hh:mm A')}</span>
                 </div>
               </div>
 
@@ -92,6 +104,10 @@ const OrderDetails = () => {
                     {order.orderStatus && order.orderStatus}
                   </p>
                 </div>
+                {order.orderStatus==="Delivered" && (<div>
+                  <p>Delivered On:</p>
+                  <span>{order.deliveredAt && moment(order.deliveredAt).format('DD-MM-YYYY hh:mm A')}</span>
+                </div>)}
               </div>
             </div>
 

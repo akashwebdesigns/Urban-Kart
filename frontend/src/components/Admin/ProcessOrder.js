@@ -15,6 +15,7 @@ import AccountTreeIcon from "@material-ui/icons/AccountTree";
 import { Button } from "@material-ui/core";
 import { UPDATE_ORDER_RESET } from "../../constants/orderConstants";
 import "./processOrder.css";
+import moment from "moment";
 
 const ProcessOrder = ({ history, match }) => {
   const { order, error, loading } = useSelector((state) => state.orderDetails);
@@ -88,6 +89,13 @@ const ProcessOrder = ({ history, match }) => {
                           `${order.shippingInfo.address}, ${order.shippingInfo.city}, ${order.shippingInfo.state}, ${order.shippingInfo.pinCode}, ${order.shippingInfo.country}`}
                       </span>
                     </div>
+                    <div>
+                      <p>Order Placed On:</p>
+                      <span>
+                        {order.createdAt &&
+                          moment(order.createdAt).format("DD-MM-YYYY hh:mm A")}
+                      </span>
+                    </div>
                   </div>
 
                   <Typography>Payment</Typography>
@@ -112,6 +120,13 @@ const ProcessOrder = ({ history, match }) => {
                       <p>Amount:</p>
                       <span>{order.totalPrice && order.totalPrice}</span>
                     </div>
+                    <div>
+                      <p>Paid On:</p>
+                      <span>
+                        {order.paidAt &&
+                          moment(order.paidAt).format("DD-MM-YYYY hh:mm A")}
+                      </span>
+                    </div>
                   </div>
 
                   <Typography>Order Status</Typography>
@@ -127,6 +142,10 @@ const ProcessOrder = ({ history, match }) => {
                         {order.orderStatus && order.orderStatus}
                       </p>
                     </div>
+                    {order.orderStatus==="Delivered" && (<div>
+                  <p>Delivered On:</p>
+                  <span>{order.deliveredAt && moment(order.deliveredAt).format('DD-MM-YYYY hh:mm A')}</span>
+                </div>)}
                   </div>
                 </div>
                 <div className="confirmCartItems">
